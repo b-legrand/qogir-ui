@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "qogir-ui": {
+      "root": "projects/qogir-ui",
+      "sourceRoot": "projects/qogir-ui/src",
+      "projectType": "library",
+      "prefix": "qg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/qogir-ui/tsconfig.lib.json",
+            "project": "projects/qogir-ui/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/qogir-ui/src/test.ts",
+            "tsConfig": "projects/qogir-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/qogir-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/qogir-ui/tsconfig.lib.json",
+              "projects/qogir-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "qogir-demo": {
+      "root": "projects/qogir-demo/",
+      "sourceRoot": "projects/qogir-demo/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/qogir-demo",
+            "index": "projects/qogir-demo/src/index.html",
+            "main": "projects/qogir-demo/src/main.ts",
+            "polyfills": "projects/qogir-demo/src/polyfills.ts",
+            "tsConfig": "projects/qogir-demo/tsconfig.app.json",
+            "assets": [
+              "projects/qogir-demo/src/favicon.ico",
+              "projects/qogir-demo/src/assets"
+            ],
+            "styles": [
+              "projects/qogir-demo/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/qogir-demo/src/environments/environment.ts",
+                  "with": "projects/qogir-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "qogir-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "qogir-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "qogir-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/qogir-demo/src/test.ts",
+            "polyfills": "projects/qogir-demo/src/polyfills.ts",
+            "tsConfig": "projects/qogir-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/qogir-demo/karma.conf.js",
+            "styles": [
+              "projects/qogir-demo/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/qogir-demo/src/favicon.ico",
+              "projects/qogir-demo/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/qogir-demo/tsconfig.app.json",
+              "projects/qogir-demo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "qogir-demo-e2e": {
+      "root": "projects/qogir-demo-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/qogir-demo-e2e/protractor.conf.js",
+            "devServerTarget": "qogir-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "qogir-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/qogir-demo-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "qogir-ui"
+}
